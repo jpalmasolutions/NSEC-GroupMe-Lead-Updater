@@ -1,0 +1,7 @@
+{
+    "REGION": "us-east-1",
+    "NSEC_LEADS_TABLE": "nsec_leads",
+    "NSEC_USER_TABLE": "nsec_users",
+    "GROUPME_API": "https://api.groupme.com/v3/",
+    "TWILIO_FROM": "+13018046044"
+}

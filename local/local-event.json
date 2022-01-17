@@ -1,0 +1,22 @@
+{
+    "Records": [
+        {
+            "EventSource": "aws:sns",
+            "EventVersion": "1.0",
+            "EventSubscriptionArn": "arn:aws:sns:us-east-1:165443708813:nsec-publisher:395fd2c9-6ed9-4942-8882-a7a99cc9461b",
+            "Sns": {
+                "Type": "Notification",
+                "MessageId": "e694628c-e106-519f-91fb-38ddc2e89539",
+                "TopicArn": "arn:aws:sns:us-east-1:165443708813:nsec-publisher",
+                "Subject": null,
+                "Message": "{\"ID\": \"7900.anne.ct.clinton.MD.20735.26463\"}",
+                "Timestamp": "2022-01-06T17:06:54.031Z",
+                "SignatureVersion": "1",
+                "Signature": "kCaoz9UPh5qc29seLRyjw6jvHNiOLyjltbkA1XyqdwqihXmYHDXHBDuYLyO3U7ptomwvcSGjQk60w9Pq15OmIUFjvA//xnG7hoXWtrtzZnJhWS/Zbb1TkTQOWBMVaQQxvCpAOLrycfkOTriLhUSRGeWiseSP5rKBacxp06uCycxuQ0w+n8hQ4vYdRv05nnd8mrFf3bnRGdJhbFbj/NeYzQonCebmqol4BHXZYQLP45qVufTr748VxJz95OBh78apE581xkJVaqH99aJQLQH6fZKYtQOSxqK6olho7tyH5peY++MfAU4MkuU4FdeUrUQO/rx0CQEgggpw3k9L6LaKpA==",
+                "SigningCertUrl": "https://sns.us-east-1.amazonaws.com/SimpleNotificationService-7ff5318490ec183fbaddaa2a969abfda.pem",
+                "UnsubscribeUrl": "https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:165443708813:nsec-publisher:395fd2c9-6ed9-4942-8882-a7a99cc9461b",
+                "MessageAttributes": {}
+            }
+        }
+    ]
+}

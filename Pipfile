@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+boto3 = "*"
+requests = "*"
+twilio = "*"
+
+[dev-packages]
+python-lambda-local = "*"
+autopep8 = "*"
+
+[requires]
+python_version = "3.9"
