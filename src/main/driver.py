@@ -4,7 +4,6 @@ from src.main.utils.aws import get_user_query
 from src.main.utils.logs import logger
 from src.main.utils.groupme import update_chat
 from src.main.utils.twilio import send_message
-from src.main.utils.user import USER_MAP
 from src.main.message.message_obj import Message
 import traceback
 
