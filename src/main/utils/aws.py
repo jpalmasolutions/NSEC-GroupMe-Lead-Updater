@@ -1,9 +1,11 @@
 import boto3
 import base64
 from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Attr
 import json
 import os
 from src.main.utils.logs import logger
+
 
 def get_secret(secret_name):
     region_name = os.environ['REGION']
@@ -61,6 +63,7 @@ def _get_table(table_name):
     table = dynamodb.Table(table_name)
     return table
 
+
 def get_lead_item(lead_id):
     table = _get_table(os.environ.get('NSEC_LEADS_TABLE'))
     item = table.get_item(
@@ -73,6 +76,7 @@ def get_lead_item(lead_id):
         return item['Item']
     else:
         raise Exception('Item not found for execution id: %s' % lead_id)
+
 
 def get_user_item(email):
     table = _get_table(os.environ.get('NSEC_USER_TABLE'))
@@ -87,20 +91,33 @@ def get_user_item(email):
     else:
         raise Exception('Item not found for execution id: %s' % email)
 
+
+def get_user_query(first_name,last_name):
+    table = _get_table(os.environ.get('NSEC_USER_TABLE'))
+
+    item = table.scan(
+        FilterExpression=Attr('FirstName').eq(first_name) & Attr('LastName').eq(last_name)
+    )
+
+    if 'Items' in item:
+        return item['Items']
+    else:
+        raise Exception('User %s %s not found.' % (first_name,last_name))
+
+
 def get_object(s3_uri):
     s3_client = boto3.client('s3')
-    
+
     temp = str(s3_uri).removeprefix('s3://')
-    s3_split = temp.split('/',1)
+    s3_split = temp.split('/', 1)
     bucket = s3_split[0]
     key = s3_split[1]
 
     response = s3_client.get_object(
-        Bucket = bucket,
-        Key = key
+        Bucket=bucket,
+        Key=key
     )
 
     logger.info(response)
 
     return response.get('Body')
-        

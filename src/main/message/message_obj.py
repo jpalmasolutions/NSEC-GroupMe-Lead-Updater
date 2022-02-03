@@ -3,7 +3,7 @@ from src.main.utils.aws import get_lead_item,get_secret
 from src.main.utils.logs import logger
 class Message():
 
-    groupme_secrets = get_secret('groupme_prod')
+    groupme_secrets = get_secret('groupme')
     twilio_secrets = get_secret('twilio')
 
     def __init__(self,id):
@@ -11,7 +11,7 @@ class Message():
 
     def populate_message(self):
         item = get_lead_item(self.id)
-        logger.info(item)
+        # logger.info(item)
         self.data = item.get('Data')
         self.attachments = []
         self.text_format = {}
@@ -69,7 +69,7 @@ class Message():
         
         texts = []
 
-        logger.info(self.text_format)
+        # logger.info(self.text_format)
 
         if self.text_format.get('Notes')[1] < 600:
             if self.text_format.get('Images')[1] > 0:
