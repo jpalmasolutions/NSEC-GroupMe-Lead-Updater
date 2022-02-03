@@ -1,6 +1,6 @@
 import json
 import os
-from src.main.utils.aws import get_user_item
+from src.main.utils.aws import get_user_query
 from src.main.utils.logs import logger
 from src.main.utils.groupme import update_chat
 from src.main.utils.twilio import send_message
@@ -18,17 +18,20 @@ def lambda_handler(event,context):
             message = Message(event_msg.get('ID'))
             if message.id:
                 message.populate_message()
+                sales_rep = message.data.get('SalesRep').split(' ')
+                canvasser = message.data.get('Canvasser').split(' ')
+                sales_rep_info = get_user_query(sales_rep[0],sales_rep[1])
+                canvasser_info = get_user_query(canvasser[0],canvasser[1])
+
                 if message.data.get('Status').strip().upper() == 'LEAD':
-                    # attachments = generate_attachments_groupme(lead,groupme_secrets.get('API_KEY'))
                     message.generate_attachments_dropbox()
                     message.generate_text()
                     message.format_text()
 
-                    try:
-                        sales_rep = message.data.get('SalesRep').upper()
-                        email = USER_MAP[sales_rep]
-                        user_item = get_user_item(email)
-                        to = user_item.get('Number')
+                    try:                
+                        logger.info(sales_rep_info)
+                        logger.info(canvasser_info)
+                        to = sales_rep_info.get('Number')
                         origin = os.environ.get('TWILIO_FROM')
                         send_message(message,to,origin)
                     except Exception as te:

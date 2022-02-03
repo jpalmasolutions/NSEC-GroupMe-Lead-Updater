@@ -1,6 +1,7 @@
 import boto3
 import base64
 from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Attr
 import json
 import os
 from src.main.utils.logs import logger
@@ -86,6 +87,18 @@ def get_user_item(email):
         return item['Item']
     else:
         raise Exception('Item not found for execution id: %s' % email)
+
+def get_user_query(first_name,last_name):
+    table = _get_table(os.environ.get('NSEC_USER_TABLE'))
+
+    item = table.scan(
+        FilterExpression=Attr('FirstName').eq(first_name) & Attr('LastName').eq(last_name)
+    )
+
+    if 'Items' in item and item.get('Count') != 0:
+        return item['Items'].pop()
+    else:
+        raise Exception('User %s %s not found.' % (first_name,last_name))
 
 def get_object(s3_uri):
     s3_client = boto3.client('s3')
